@@ -45,7 +45,7 @@
     <div class="wrapper">
 
       <!-- Sidebar -->
-        <?php require_once("Admin_Sidebar1.php"); ?>
+        <?php require_once("User_Sidebar1.php"); ?>
       <!-- End Sidebar -->
 
       <div class="main-panel">
@@ -78,7 +78,7 @@
           </div>
 
           <!-- Navbar Header -->
-            <?php require_once("Admin_Nav.php"); ?>
+            <?php require_once("User_Nav.php"); ?>
           <!-- End Navbar -->
         </div>
 
