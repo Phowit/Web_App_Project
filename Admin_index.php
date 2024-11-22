@@ -1,3 +1,13 @@
+<?php
+require_once("connect_db.php");
+session_start();
+
+    // ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
+    if (!isset($_SESSION['Admin_ID'])) {
+      header("Location: Admin_Login.php"); // หากยังไม่ได้ล็อกอิน ย้ายไปหน้า signin.php
+      exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,6 +52,7 @@
     <link rel="stylesheet" href="assets/css/demo.css" />
   </head>
   <body>
+    
     <div class="wrapper">
 
       <!-- Sidebar -->
