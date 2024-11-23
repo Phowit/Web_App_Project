@@ -153,36 +153,55 @@
       <div class="container">
         <?php
         require_once("connect_db.php");
-        $sql = "select * from warehouse";
+        $sql = "SELECT  `Interested_Name`,
+                        `DT_record`,
+                        `Interested_status`,
+                        interested.Warehouse_ID ,
+                        warehouse.`Warehouse_Name`,
+                        warehouse.`Warehouse_Size`,
+                        warehouse.`Warehouse_Description`,
+                        warehouse.`Warehouse_Address`,
+                        warehouse.Warehouse_Image
+                FROM interested
+                INNER JOIN warehouse ON warehouse.`Warehouse_ID` = interested.`Warehouse_ID`
+                ORDER BY DT_record DESC;
+                ";
         $result = mysqli_query($conn, $sql);
 
         while ($row = $result->fetch_assoc()) {
-          $Warehouse_ID = $row['Warehouse_ID'];
+          $Interested_Name = $row['Interested_Name'];
           $Warehouse_Name = $row['Warehouse_Name'];
           $Warehouse_Size = $row['Warehouse_Size'];
           $Warehouse_Description = $row['Warehouse_Description'];
           $Warehouse_Address = $row['Warehouse_Address'];
-          $Warehouse_Image   = $row['Warehouse_Image'];
+          $Warehouse_Image = $row['Warehouse_Image'];
+          $DT_record = date_create_from_format(format: "Y-m-d H:i:s", datetime: $row["DT_record"]) ->format(format: "d/m/Y");
+          $Interested_status = $row['Interested_status'];
         ?>
           <div class="col-md-12" style="padding: 10px;">
             <div class="card card-light card-round">
 
-              <div class="card-header">
-                <div class="card-head-row">
-                  <div class="card-title"><?php echo $row['Warehouse_Name']; ?></div>
-                </div>
-                <div class="card-category"><?php echo $row['Warehouse_Size']; ?></div>
-              </div>
-
               <div class="card-body">
                 <div class="row">
+
                   <div class="col-md-4 col-lg-4">
                     <img src="assets/img/chadengle.jpg" style="height:100%;">
                   </div>
-                  <div class="col-md-8 col-lg-8">
-                    <p><?php echo $row['Warehouse_Description']; ?></p><br>
-                    <p><?php echo $row['Warehouse_Address']; ?></p>
+                  <div class="col-md-6 col-lg-6">
+                    <p>ผู้ส่งความสนใจเช่า : <?php echo $row['Interested_Name']; ?></p>
+                    <p>วันที่ส่งความสนใจ : <?php echo $DT_record; ?></p>
+                    <p>ชื่อโกดัง : <?php echo $row['Warehouse_Name']; ?></p>
+                    <p>ขนาดโกดัง : <?php echo $row['Warehouse_Size']; ?></p>
+                    <p>คำอธิบาย : <?php echo $row['Warehouse_Description']; ?></p>
+                    <p>ที่ตั้งโกดัง : <?php echo $row['Warehouse_Address']; ?></p>
                   </div>
+                  <div class="col-md-2 col-lg-2">
+                    <div class="row card card-stats card-success card-round">
+                        <a>สถานะ</a>
+                        <a><?php echo $row['Interested_status']; ?></a>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 

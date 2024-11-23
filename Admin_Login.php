@@ -1,12 +1,12 @@
 <?php
-    require_once("connect_db.php");
-    session_start();
+require_once("connect_db.php");
+session_start();
 
-    // หากผู้ใช้ล็อกอินแล้ว ให้ย้ายไปหน้า dashboard
-    if (isset($_SESSION['Admin_ID'])) {
-        header("Location: Admin_Index.php");
-        exit();
-    }
+// หากผู้ใช้ล็อกอินแล้ว ให้ย้ายไปหน้า dashboard
+if (isset($_SESSION['Admin_ID'])) {
+  header("Location: Admin_Index.php");
+  exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -56,16 +56,13 @@
 
 <body>
   <div class="wrapper">
-
-    <?php require_once("User_Nav.php"); ?>
-
     <div class="row">
 
-    <div class="col-md-4">
-    
-    </div>
-
       <div class="col-md-4">
+
+      </div>
+
+      <div class="col-md-4" style="padding-top: 5%;">
         <div class="card">
 
           <div class="card-header">
@@ -80,15 +77,15 @@
             <form action="Login.php" method="POST">
 
 
-                  <label for="Admin_ID">รหัสผู้ดูแลระบบ</label>
-                  <input type="num" class="form-control" id="Admin_ID" name="Admin_ID_Input" placeholder="Enter you ID"/>
+              <label for="Admin_ID">รหัสผู้ดูแลระบบ</label>
+              <input type="num" class="form-control" id="Admin_ID" name="Admin_ID_Input" placeholder="Enter you ID" />
 
-                  <label for="Admin_Password">รหัสผ่าน</label>
-                  <input type="Password" class="form-control" id="Admin_Password" name="Admin_Password_Input" placeholder="Enter you Password" />
+              <label for="Admin_Password">รหัสผ่าน</label>
+              <input type="Password" class="form-control" id="Admin_Password" name="Admin_Password_Input" placeholder="Enter you Password" />
 
-                  <div style="padding-left: 40%; padding-top:3%">
-                  <button type="submit" class="btn btn-success" value="Submit">Login</button>
-                  </div>
+              <div style="padding-left: 40%; padding-top:3%">
+                <button type="submit" class="btn btn-success" value="Submit">Login</button>
+              </div>
 
             </form>
           </div>

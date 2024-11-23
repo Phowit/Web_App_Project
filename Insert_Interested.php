@@ -9,10 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Interested_Email = $_POST['Interested_Email'];
     $Interested_Tel = $_POST['Interested_Tel'];
     $Warehouse_ID = $_POST['Warehouse_ID'];
+    $Interested_status = "รอดำเนินการ";
 
     // เตรียมคำสั่ง SQL
-    $sqli = "insert into interested(Interested_Name, Interested_Email, Interested_Tel, Warehouse_ID)";
-    $sqli .= "values('$Interested_Name','$Interested_Email','$Interested_Tel','$Warehouse_ID')";
+    $sqli = "insert into interested(Interested_Name, Interested_Email, Interested_Tel, Warehouse_ID, Interested_status)";
+    $sqli .= "values('$Interested_Name','$Interested_Email','$Interested_Tel','$Warehouse_ID','$Interested_status')";
 
     mysqli_query($conn,$sqli); 
     echo"SQL = ".$sqli;
