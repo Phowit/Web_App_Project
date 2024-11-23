@@ -23,13 +23,13 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="User_index.php">
                         <i class="fas fa-home"></i>
                         <p>หน้าหลัก</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a href="User_Interested.php">
                         <i class="fas fa-file"></i>
                         <p>คำร้องขอ</p>

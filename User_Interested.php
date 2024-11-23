@@ -140,7 +140,7 @@
   <div class="wrapper">
 
     <!-- Sidebar -->
-    <?php require_once("User_Sidebar1.php"); ?>
+    <?php require_once("User_Sidebar2.php"); ?>
     <!-- End Sidebar -->
 
     <div class="main-panel">
