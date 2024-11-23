@@ -140,7 +140,7 @@
   <div class="wrapper">
 
     <!-- Sidebar -->
-    <?php require_once("User_Sidebar1.php"); ?>
+    <?php require_once("User_Sidebar2.php"); ?>
     <!-- End Sidebar -->
 
     <div class="main-panel">
@@ -151,86 +151,92 @@
       </div>
 
       <div class="container">
-        <div class="page-inner">
-          <div class="row">
-            <div class="col-md-12">
-              <h3 class="fw-bold mb-3">โกดัง Jirapron </h3>
-              <h6 class="op-7 mb-2">รับฝากสินค้า หลากหลายชนิด หลากหลายขนาด</h6>
+        <?php
+        require_once("connect_db.php");
+        $sql = "SELECT  `Interested_Name`,
+                        `DT_record`,
+                        `Interested_status`,
+                        interested.Warehouse_ID ,
+                        warehouse.`Warehouse_Name`,
+                        warehouse.`Warehouse_Size`,
+                        warehouse.`Warehouse_Description`,
+                        warehouse.`Warehouse_Address`,
+                        warehouse.Warehouse_Image
+                FROM interested
+                INNER JOIN warehouse ON warehouse.`Warehouse_ID` = interested.`Warehouse_ID`
+                ORDER BY DT_record DESC;
+                ";
+        $result = mysqli_query($conn, $sql);
+
+        while ($row = $result->fetch_assoc()) {
+          $Interested_Name = $row['Interested_Name'];
+          $Warehouse_Name = $row['Warehouse_Name'];
+          $Warehouse_Size = $row['Warehouse_Size'];
+          $Warehouse_Description = $row['Warehouse_Description'];
+          $Warehouse_Address = $row['Warehouse_Address'];
+          $Warehouse_Image = $row['Warehouse_Image'];
+          $DT_record = date_create_from_format(format: "Y-m-d H:i:s", datetime: $row["DT_record"]) ->format(format: "d/m/Y");
+          $Interested_status = $row['Interested_status'];
+        ?>
+          <div class="col-md-12" style="padding: 10px;">
+            <div class="card card-light card-round">
+
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-4 col-lg-4">
+                    <img src="assets/img/chadengle.jpg" style="height:100%;">
+                  </div>
+                  <div class="col-md-6 col-lg-6">
+                    <p>ผู้ส่งความสนใจเช่า : <?php echo $row['Interested_Name']; ?></p>
+                    <p>วันที่ส่งความสนใจ : <?php echo $DT_record; ?></p>
+                    <p>ชื่อโกดัง : <?php echo $row['Warehouse_Name']; ?></p>
+                    <p>ขนาดโกดัง : <?php echo $row['Warehouse_Size']; ?></p>
+                    <p>คำอธิบาย : <?php echo $row['Warehouse_Description']; ?></p>
+                    <p>ที่ตั้งโกดัง : <?php echo $row['Warehouse_Address']; ?></p>
+                  </div>
+                  <div class="col-md-2 col-lg-2">
+                    <div class="row card card-stats card-success card-round">
+                        <a>สถานะ</a>
+                        <a><?php echo $row['Interested_status']; ?></a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
           </div>
+        <?php } ?>
+      </div>
 
-          <div class="row">
-          <?php
-          require_once("connect_db.php");
-          $sql = "select * from warehouse";
-          $result = mysqli_query($conn, $sql);
-
-          while ($row = $result->fetch_assoc()) {
-            $Warehouse_ID = $row['Warehouse_ID'];
-            $Warehouse_Name = $row['Warehouse_Name'];
-            $Warehouse_Size = $row['Warehouse_Size'];
-            $Warehouse_Description = $row['Warehouse_Description'];
-            $Warehouse_Address = $row['Warehouse_Address'];
-            $Warehouse_Image   = $row['Warehouse_Image'];
-          ?>
-            <div class="col-md-6">
-              <div class="card card-light card-round">
-
-                <div class="card-header">
-                  <div class="card-head-row">
-                    <div class="card-title"><?php echo $row['Warehouse_Name']; ?></div>
-                  </div>
-                  <div class="row">
-                    <div class="card-category"><?php echo $row['Warehouse_Size']; ?></div>
-                  </div>
-                </div>
-
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-md-4 col-lg-4">
-                      <img src="assets/img/chadengle.jpg" style="height:100%;">
-                    </div>
-                    <div class="col-md-8 col-lg-8">
-                      <p><?php echo $row['Warehouse_Description']; ?></p>
-                      <p><?php echo $row['Warehouse_Address']; ?></p>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          <?php } ?>
+      <footer class="footer">
+        <div class="container-fluid d-flex justify-content-between">
+          <nav class="pull-left">
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link" href="http://www.themekita.com">
+                  ThemeKita
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"> Help </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"> Licenses </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright">
+            2024, made with <i class="fa fa-heart heart text-danger"></i> by
+            <a href="http://www.themekita.com">ThemeKita</a>
+          </div>
+          <div>
+            Distributed by
+            <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
           </div>
         </div>
-
-        <footer class="footer">
-          <div class="container-fluid d-flex justify-content-between">
-            <nav class="pull-left">
-              <ul class="nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="http://www.themekita.com">
-                    ThemeKita
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Help </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Licenses </a>
-                </li>
-              </ul>
-            </nav>
-            <div class="copyright">
-              2024, made with <i class="fa fa-heart heart text-danger"></i> by
-              <a href="http://www.themekita.com">ThemeKita</a>
-            </div>
-            <div>
-              Distributed by
-              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
-            </div>
-          </div>
-        </footer>
-      </div>
+      </footer>
     </div>
 
   </div>
