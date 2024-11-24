@@ -70,13 +70,29 @@ if (!isset($_SESSION['Admin_ID'])) {
 
       <div class="container">
         <div class="page-inner">
-            <div class="row">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="fw-bold mb-3">ข้อมูลโกดัง ที่รับผิดชอบ </h3>
+            </div>
+          </div>
+          <div class="row">
             <?php
             require_once("connect_db.php");
-            $sql = "select * from warehouse";
-            $result = mysqli_query($conn, $sql);
+            $sql = "SELECT * FROM admin
+                    INNER JOIN warehouse ON admin.Warehouse_ID = warehouse.Warehouse_ID
+                    WHERE `Admin_ID` = ?";
+                    
+            $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL เพื่อป้องกัน SQL Injection
+            $stmt->bind_param("i", $_SESSION['Admin_ID']); // ผูกค่าพารามิเตอร์
+            $stmt->execute(); // รันคำสั่ง
+            $result = $stmt->get_result(); // รับผลลัพธ์จากฐานข้อมูล
 
             while ($row = $result->fetch_assoc()) {
+              $Admin_ID = $row['Admin_ID'];
+              $Admin_Name = $row['Admin_Name'];
+              $Admin_Address = $row['Admin_Address'];
+              $Admin_Tel = $row['Admin_Tel'];
+
               $Warehouse_ID = $row['Warehouse_ID'];
               $Warehouse_Name = $row['Warehouse_Name'];
               $Warehouse_Size = $row['Warehouse_Size'];
@@ -84,17 +100,17 @@ if (!isset($_SESSION['Admin_ID'])) {
               $Warehouse_Address = $row['Warehouse_Address'];
               $Warehouse_Image   = $row['Warehouse_Image'];
             ?>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="card card-light card-round">
 
                   <div class="card-header">
                     <div class="card-head-row">
-                      <div class="col-md-10 col-lg-10">
+                      <div class="col-md-11 col-lg-11">
                         <div class="card-title"><?php echo $row['Warehouse_Name']; ?></div>
                       </div>
 
-                      <div class="col-md-2 col-lg-2">
-                        <a>รหัสโกดัง: <?php echo $row['Warehouse_ID']; ?></a>
+                      <div class="col-md-1 col-lg-1">
+                        <a>รหัสโกดัง : <?php echo $row['Warehouse_ID']; ?></a>
                       </div>
                     </div>
                     <div class="row">
@@ -108,12 +124,17 @@ if (!isset($_SESSION['Admin_ID'])) {
                       <div class="col-md-4 col-lg-4">
                         <img src="assets/img/chadengle.jpg" style="height:100%;">
                       </div>
-                      
+
                       <div class="col-md-8 col-lg-8">
-                        <a><?php echo $row['Warehouse_Description']; ?></a><br>
-                        <a><?php echo $row['Warehouse_Address']; ?></a>
+                        <a><?php echo $row['Warehouse_Description']; ?></a> <br>
+                        <a><?php echo $row['Warehouse_Address']; ?></a> <br> <br>
+
+                        <a>ผู้ดูแลโกดังรหัส : <?php echo $row['Admin_ID']; ?></a> <br>
+                        <a>ชื่อผู้ดูแลโกดัง : <?php echo $row['Admin_Name']; ?></a> <br>
+                        <a>ที่อยู่ติดต่อ : <?php echo $row['Admin_Address']; ?></a> <br>
+                        <a>เบอร์โทร : <?php echo $row['Admin_Tel']; ?></a>
                       </div>
-                      
+
                     </div>
                   </div>
 

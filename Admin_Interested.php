@@ -1,3 +1,13 @@
+<?php
+require_once("connect_db.php");
+session_start();
+
+// ตรวจสอบว่าผู้ใช้เข้าสู่ระบบหรือไม่
+if (!isset($_SESSION['Admin_ID'])) {
+  header("Location: Admin_Login.php"); // หากยังไม่ได้ล็อกอิน ย้ายไปหน้า signin.php
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -140,7 +150,7 @@
   <div class="wrapper">
 
     <!-- Sidebar -->
-    <?php require_once("User_Sidebar2.php"); ?>
+    <?php require_once("Admin_Sidebar2.php"); ?>
     <!-- End Sidebar -->
 
     <div class="main-panel">
@@ -153,30 +163,32 @@
       <div class="container">
         <?php
         require_once("connect_db.php");
-        $sql = "SELECT  `Interested_Name`,
-                        `DT_record`,
-                        `Interested_status`,
-                        interested.Warehouse_ID ,
-                        warehouse.`Warehouse_Name`,
-                        warehouse.`Warehouse_Size`,
-                        warehouse.`Warehouse_Description`,
-                        warehouse.`Warehouse_Address`,
-                        warehouse.Warehouse_Image
-                FROM interested
-                INNER JOIN warehouse ON warehouse.`Warehouse_ID` = interested.`Warehouse_ID`
-                ORDER BY DT_record DESC;
-                ";
-        $result = mysqli_query($conn, $sql);
+        $sql = "SELECT * FROM `interested` 
+                INNER JOIN warehouse ON interested.Warehouse_ID = warehouse.Warehouse_ID
+                INNER JOIN admin ON warehouse.Warehouse_ID = admin.Warehouse_ID
+                WHERE Admin_ID = ?";
+
+        $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL เพื่อป้องกัน SQL Injection
+        $stmt->bind_param("i", $_SESSION['Admin_ID']); // ผูกค่าพารามิเตอร์
+        $stmt->execute(); // รันคำสั่ง
+        $result = $stmt->get_result(); // รับผลลัพธ์จากฐานข้อมูล
 
         while ($row = $result->fetch_assoc()) {
+          $Interested_ID = $row['Interested_ID'];
           $Interested_Name = $row['Interested_Name'];
+          $Interested_Email = $row['Interested_Email'];
+          $Interested_Tel = $row['Interested_Tel'];
+          $DT_record = date_create_from_format(format: "Y-m-d H:i:s", datetime: $row["DT_record"]) ->format(format: "d/m/Y");
+          $Interested_status = $row['Interested_status'];
+
+          $Warehouse_ID = $row['Warehouse_ID']; //ตัวเชื่อม 2 table ระหว่าง interested กับ Warehouse 
+
           $Warehouse_Name = $row['Warehouse_Name'];
           $Warehouse_Size = $row['Warehouse_Size'];
           $Warehouse_Description = $row['Warehouse_Description'];
           $Warehouse_Address = $row['Warehouse_Address'];
           $Warehouse_Image = $row['Warehouse_Image'];
-          $DT_record = date_create_from_format(format: "Y-m-d H:i:s", datetime: $row["DT_record"]) ->format(format: "d/m/Y");
-          $Interested_status = $row['Interested_status'];
+          $Rental_ID = $row['Rental_ID'];
         ?>
           <div class="col-md-12" style="padding: 10px;">
             <div class="card card-light card-round">
