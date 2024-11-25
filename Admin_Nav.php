@@ -289,6 +289,23 @@
                 <ul class="dropdown-menu dropdown-user animated fadeIn">
                     <div class="dropdown-user-scroll scrollbar-outer">
                         <li>
+                        <?php
+                            require_once("connect_db.php");
+                            $sql = "SELECT * FROM admin WHERE `Admin_ID` = ?";
+
+                            $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL เพื่อป้องกัน SQL Injection
+                            $stmt->bind_param("i", $_SESSION['Admin_ID']); // ผูกค่าพารามิเตอร์
+                            $stmt->execute(); // รันคำสั่ง
+                            $result = $stmt->get_result(); // รับผลลัพธ์จากฐานข้อมูล
+
+                            while ($row = $result->fetch_assoc()) {
+                                $Admin_ID = $row['Admin_ID'];
+                                $Admin_Name = $row['Admin_Name'];
+                                $Admin_Tel = $row['Admin_Tel'];
+                                $Admin_Address = $row['Admin_Address'];
+                                $Admin_Image = $row['Admin_Image'];
+                                $Warehouse_ID = $row['Warehouse_ID'];
+                        ?>
                             <div class="user-box">
                                 <div class="avatar-lg">
                                     <img
@@ -297,21 +314,16 @@
                                         class="avatar-img rounded" />
                                 </div>
                                 <div class="u-text">
-                                    <h4>Hizrian</h4>
-                                    <p class="text-muted">hello@example.com</p>
-                                    <a
-                                        href="profile.html"
-                                        class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                    <h4><?php echo $Admin_Name; ?></h4>
+                                    <p class="text-muted">
+                                        เบอร์โทรศัพท์ : <?php echo $Admin_Tel; ?> <br>
+                                        ที่อยู่ : <?php echo $Admin_Address; ?>
+                                    </p>
                                 </div>
                             </div>
+                            <?php } ?>
                         </li>
                         <li>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">My Profile</a>
-                            <a class="dropdown-item" href="#">My Balance</a>
-                            <a class="dropdown-item" href="#">Inbox</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Account Setting</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="Admin_Logout.php">Logout</a>
 

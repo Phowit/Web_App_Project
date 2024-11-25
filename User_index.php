@@ -178,10 +178,10 @@
 
                 <div class="card-header">
                   <div class="card-head-row">
-                    <div class="card-title"><?php echo $row['Warehouse_Name']; ?></div>
+                    <div class="card-title"><?php echo $Warehouse_Name; ?></div>
                   </div>
                   <div class="row">
-                    <div class="card-category"><?php echo $row['Warehouse_Size']; ?></div>
+                    <div class="card-category"><?php echo $Warehouse_Size; ?></div>
                   </div>
                 </div>
 
@@ -191,8 +191,8 @@
                       <img src="assets/img/chadengle.jpg" style="height:100%;">
                     </div>
                     <div class="col-md-8 col-lg-8">
-                      <p><?php echo $row['Warehouse_Description']; ?></p>
-                      <p><?php echo $row['Warehouse_Address']; ?></p>
+                      <p><?php echo $Warehouse_Description; ?></p>
+                      <p><?php echo $Warehouse_Address; ?></p>
                     </div>
                   </div>
                 </div>

@@ -188,17 +188,17 @@
                     <img src="assets/img/chadengle.jpg" style="height:100%;">
                   </div>
                   <div class="col-md-6 col-lg-6">
-                    <p>ผู้ส่งความสนใจเช่า : <?php echo $row['Interested_Name']; ?></p>
+                    <p>ผู้ส่งความสนใจเช่า : <?php echo $Interested_Name; ?></p>
                     <p>วันที่ส่งความสนใจ : <?php echo $DT_record; ?></p>
-                    <p>ชื่อโกดัง : <?php echo $row['Warehouse_Name']; ?></p>
-                    <p>ขนาดโกดัง : <?php echo $row['Warehouse_Size']; ?></p>
-                    <p>คำอธิบาย : <?php echo $row['Warehouse_Description']; ?></p>
-                    <p>ที่ตั้งโกดัง : <?php echo $row['Warehouse_Address']; ?></p>
+                    <p>ชื่อโกดัง : <?php echo $Warehouse_Name; ?></p>
+                    <p>ขนาดโกดัง : <?php echo $Warehouse_Size; ?></p>
+                    <p>คำอธิบาย : <?php echo $Warehouse_Description; ?></p>
+                    <p>ที่ตั้งโกดัง : <?php echo $Warehouse_Address; ?></p>
                   </div>
                   <div class="col-md-2 col-lg-2">
                     <div class="row card card-stats card-success card-round">
                         <a>สถานะ</a>
-                        <a><?php echo $row['Interested_status']; ?></a>
+                        <a><?php echo $Interested_status; ?></a>
                     </div>
                   </div>
 
