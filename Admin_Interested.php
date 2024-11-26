@@ -234,9 +234,8 @@ if (!isset($_SESSION['Admin_ID'])) {
                         <button type="submit" class="btn btn-success col-md-12 ms-auto me-auto btn-xs" style="margin: 2px;">บันทึก</button>
 
                       </form>
-
                     </div>
-
+                    <button type="button" class="btn btn-danger col-md-12 ms-auto me-auto" onclick="deleteInterested(InterestedID(<?= $Interested_ID; ?>))">ยืนยัน</button>
                   </div>
                 </div>
               </div>
@@ -367,61 +366,22 @@ if (!isset($_SESSION['Admin_ID'])) {
       }
     }
   </script>
-  <!--script>
-      // Get the modal
-      var modal = document.getElementById("myModal");
 
-      // Get the button that opens the modal
-      var btn = document.getElementById("OpenModelEditInterested");
+  <script>
+    var InterestedID;
 
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close3")[0];
+    // ฟังก์ชันเพื่อรับค่า member_ID เมื่อคลิกที่ปุ่ม "ลบ"
+    function InterestedID(Interested_ID) {
+      InterestedID = Interested_ID;
+    }
 
-      // When the user clicks on the button, open the modal
-      btn.onclick = function() {
-        modal.style.display = "block";
-      }
+    function deleteInterested() {
 
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-        modal.style.display = "none";
-      }
+        // ถ้ายืนยันการลบ ทำการ redirect ไปยังไฟล์ planting_delete.php พร้อมส่งค่า id ของแถวที่ต้องการลบ
+        window.location.href = "Delete_Interested.php?id=" + InterestedID;
 
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    </!script-->
-
-  <!--<script>
-      // Get all buttons and modals
-      var buttons = document.querySelectorAll('[id^="OpenModelEditInterested"]');
-      var modals = document.querySelectorAll('.modal');
-
-      // Loop through buttons and assign events
-      buttons.forEach(function(btn) {
-        var modalId = btn.getAttribute('data-bs-target').replace('#', ''); // Get the related modal ID
-        var modal = document.getElementById(modalId);
-
-        var closeBtn = modal.querySelector('.close3'); // Find the close button inside the modal
-
-        btn.onclick = function() {
-          modal.style.display = "block";
-        };
-
-        closeBtn.onclick = function() {
-          modal.style.display = "none";
-        };
-
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        };
-      });
-    </script>-->
+    }
+</script>
 
 </body>
 
