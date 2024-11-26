@@ -180,6 +180,7 @@ if (!isset($_SESSION['Admin_ID'])) {
               $Admin_Name = $row['Admin_Name'];
               $Admin_Address = $row['Admin_Address'];
               $Admin_Tel = $row['Admin_Tel'];
+              $Admin_Password = $row['Admin_Password'];
 
               $Warehouse_ID = $row['Warehouse_ID'];
               $Warehouse_Name = $row['Warehouse_Name'];
@@ -298,31 +299,34 @@ if (!isset($_SESSION['Admin_ID'])) {
                   <div class="card-footer">
 
                     <div class="row">
-                      <button class="btn btn-warning col-md-4 me-auto ms-auto">แก้ไข</button>
+                      <button class="btn btn-warning col-md-4 me-auto ms-auto" 
+                              id="OpenModelEditAdmin"
+                              data-bs-target="#editRecordModal">
+                              แก้ไข</button>
                     </div>
 
                     <div id="myModal2" class="modal">
                       <!-- Modal content -->
                       <div class="modal-content">
                         <div class="modal-header">
-                          <span class="close">&times;</span>
-                          <h2>แก้ไขข้อมูลโกดัง</h2>
+                          <span class="close1">&times;</span>
+                          <h2>แก้ไขข้อมูลผู้ดูแลระบบ</h2>
                         </div>
                         <div class="modal-body">
-                          <form action="Update_Warehouse.php" method="POST">
-                            <input type="hidden" name="Warehouse_ID" value=<?php echo $Warehouse_ID; ?>>
+                          <form action="Update_Admin.php" method="POST">
+                            <input type="hidden" name="Admin_ID" value=<?php echo $Admin_ID; ?>>
 
-                            <label for="Warehouse_Name">ชื่อโกดัง</label>
-                            <input type="text" class="form-control" name="Warehouse_Name" placeholder="<?php echo $Warehouse_Name; ?>" required/>
+                            <label for="Admin_Name">ชื่อผู้ดูแล</label>
+                            <input type="text" class="form-control" name="Admin_Name" placeholder="<?php echo $Admin_Name; ?>" required/>
 
-                            <label for="Warehouse_Size">ขนาดโกดัง</label>
-                            <input type="text" class="form-control" name="Warehouse_Size" placeholder="<?php echo $Warehouse_Size; ?>" required/>
+                            <label for="Admin_Tel">เบอร์โทร</label>
+                            <input type="text" class="form-control" name="Admin_Tel" placeholder="<?php echo $Admin_Tel; ?>" required/>
 
-                            <label for="Warehouse_Description">คำอธิบาย</label>
-                            <input type="text" class="form-control" name="Warehouse_Description" placeholder="<?php echo $Warehouse_Description; ?>" required/>
+                            <label for="Admin_Address">ที่อยู่ติดต่อ</label>
+                            <input type="text" class="form-control" name="Admin_Address" placeholder="<?php echo $Admin_Address; ?>" required/>
 
-                            <label for="Warehouse_Address">ที่อยู่โกดัง</label>
-                            <input type="text" class="form-control" name="Warehouse_Address" placeholder="<?php echo $Warehouse_Address; ?>" required/>
+                            <label for="Admin_Password">รหัสผ่าน</label>
+                            <input type="Password" class="form-control" name="Admin_Password" placeholder="รหัสผ่านใหม่" required/>
                             <br>
                             <div style="padding-left: 45%;">
                               <button type="submit" class="btn btn-success">บันทึก</button>
@@ -444,33 +448,33 @@ if (!isset($_SESSION['Admin_ID'])) {
     }
   </script>
 
-<script>
-    // Get the modal
-    var modal = document.getElementById("myModal2");
+  <script>
+      // Get the modal
+      var modal = document.getElementById("myModal2");
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("OpenModelEditWarehouse");
+      // Get the button that opens the modal
+      var btn = document.getElementById("OpenModelEditAdmin");
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close1")[0];
 
-    // When the user clicks on the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
+      // When the user clicks on the button, open the modal
+      btn.onclick = function() {
+          modal.style.display = "block";
+      }
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+          modal.style.display = "none";
+      }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+  </script>
 </body>
 
 </html>

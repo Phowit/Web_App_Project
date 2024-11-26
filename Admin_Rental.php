@@ -163,12 +163,14 @@ if (!isset($_SESSION['Admin_ID'])) {
       <div class="container">
         <?php
         require_once("connect_db.php");
-        $sql = "SELECT * FROM interested
-                INNER JOIN warehouse ON interested.Warehouse_ID = warehouse.Warehouse_ID
+        $sql = "SELECT *
+                FROM product
+                INNER JOIN tenant ON product.Tenant_ID = tenant.Tenant_ID
+                INNER JOIN rental ON tenant.Tenant_ID = rental.Tenant_ID
+                INNER JOIN warehouse ON rental.Rental_ID = warehouse.Rental_ID
                 INNER JOIN admin ON warehouse.Warehouse_ID = admin.Warehouse_ID
-                INNER JOIN rental ON warehouse.Rental_ID = rental.Rental_ID
                 WHERE Admin_ID = ?
-                ";
+";
 
         $stmt = $conn->prepare($sql); // เตรียมคำสั่ง SQL เพื่อป้องกัน SQL Injection
         $stmt->bind_param("i", $_SESSION['Admin_ID']); // ผูกค่าพารามิเตอร์
@@ -176,22 +178,32 @@ if (!isset($_SESSION['Admin_ID'])) {
         $result = $stmt->get_result(); // รับผลลัพธ์จากฐานข้อมูล
 
         while ($row = $result->fetch_assoc()) {
-          $Interested_ID = $row['Interested_ID'];
-          $Interested_Name = $row['Interested_Name'];
-          $Interested_Email = $row['Interested_Email'];
-          $Interested_Tel = $row['Interested_Tel'];
-          $DT_record = date_create_from_format(format: "Y-m-d H:i:s", datetime: $row["DT_record"])->format(format: "d/m/Y");
-          $Interested_status = $row['Interested_status'];
-
-          $Warehouse_ID = $row['Warehouse_ID']; //ตัวเชื่อม 2 table ระหว่าง interested กับ Warehouse 
-
-          $Warehouse_Name = $row['Warehouse_Name'];
-          $Warehouse_Size = $row['Warehouse_Size'];
-          $Warehouse_Description = $row['Warehouse_Description'];
-          $Warehouse_Address = $row['Warehouse_Address'];
-          $Warehouse_Image = $row['Warehouse_Image'];
-          $Rental_ID = $row['Rental_ID'];
-          $Rental_Name = $row['Rental_Name'];
+            $Product_ID = $row['Product_ID'];     //ตัวเชื่อม Tenant
+            $Product_Name = $row['Product_Name'];
+            $Stock = $row['Stock'];
+            $Description = $row['Description'];
+  
+            $Tenant_ID = $row['Tenant_ID'];       //ตัวเชื่อม Rental
+            $Tenant_Name = $row['Tenant_Name'];
+            $Tenant_Age = $row['Tenant_Age'];
+            $Tenant_Tel = $row['Tenant_Tel'];
+            $Tenant_Address = $row['Tenant_Address'];
+            $Tanant_Email = $row['Tanant_Email'];
+  
+            $Rental_ID = $row['Rental_ID'];
+            $Rental_Name = $row['Rental_Name'];
+            $Rental_Start = $row['Rental_Start'];
+            $Rental_End = $row['Rental_End'];
+            $Rental_Price = $row['Rental_Price'];
+            $RentanPayment_Date = $row['RentanPayment_Date'];
+            $Rental_Description = $row['Rental_Description'];
+            $Rental_Warn = $row['Rental_Warn'];
+            $Late_Fees = $row['Late_Fees'];
+            $Date_Closing_Warehouse = $row['Date_Closing_Warehouse'];
+            $Rental_Status = $row['Rental_Status'];
+            $Tenant_ID = $row['Tenant_ID'];
+  
+            $Warehouse_Name = $row['Warehouse_Name'];
         ?>
           <div class="col-md-12" style="padding: 10px;">
             <div class="card card-light card-round">
@@ -221,7 +233,7 @@ if (!isset($_SESSION['Admin_ID'])) {
                     </div>
 
                     <div class="row card card-info">
-                      <form action="Update_Interested_status.php" method="POST">
+                      <form action="#" method="POST">
                         <input type="hidden" name="Interested_ID" value=<?php echo $Interested_ID; ?>>
                         <p>เปลี่ยนสถานะ</p>
                         <select class="form-select" name="Interested_status" id="Interested_status" aria-label="Floating label select example" required>
@@ -367,61 +379,6 @@ if (!isset($_SESSION['Admin_ID'])) {
       }
     }
   </script>
-  <!--script>
-      // Get the modal
-      var modal = document.getElementById("myModal");
-
-      // Get the button that opens the modal
-      var btn = document.getElementById("OpenModelEditInterested");
-
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close3")[0];
-
-      // When the user clicks on the button, open the modal
-      btn.onclick = function() {
-        modal.style.display = "block";
-      }
-
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-        modal.style.display = "none";
-      }
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    </!script-->
-
-  <!--<script>
-      // Get all buttons and modals
-      var buttons = document.querySelectorAll('[id^="OpenModelEditInterested"]');
-      var modals = document.querySelectorAll('.modal');
-
-      // Loop through buttons and assign events
-      buttons.forEach(function(btn) {
-        var modalId = btn.getAttribute('data-bs-target').replace('#', ''); // Get the related modal ID
-        var modal = document.getElementById(modalId);
-
-        var closeBtn = modal.querySelector('.close3'); // Find the close button inside the modal
-
-        btn.onclick = function() {
-          modal.style.display = "block";
-        };
-
-        closeBtn.onclick = function() {
-          modal.style.display = "none";
-        };
-
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        };
-      });
-    </script>-->
 
 </body>
 

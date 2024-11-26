@@ -39,7 +39,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#">
+                    <a href="Admin_Rental.php">
                         <i class="fas fa-book"></i>
                         <p>ข้อมูลการเช่า</p>
                     </a>

@@ -4,19 +4,20 @@
     require_once("connect_db.php");
 
     // รับข้อมูลจากฟอร์ม
-    $Warehouse_ID = $_POST['Warehouse_ID'];
-    $Warehouse_Name = $_POST['Warehouse_Name'];
-    $Warehouse_Size = $_POST['Warehouse_Size'];
-    $Warehouse_Description = $_POST['Warehouse_Description'];
-    $Warehouse_Address = $_POST['Warehouse_Address'];
+    $Admin_ID = $_POST['Admin_ID'];
+    $Admin_Name = $_POST['Admin_Name'];
+    $Admin_Password = $_POST['Admin_Password'];
+    $Admin_Tel = $_POST['Admin_Tel'];
+    $Admin_Address = $_POST['Admin_Address'];
+    //$Admin_Image = $_POST['Admin_Image'];
 
         // เขียนคำสั่ง SQL สำหรับลบข้อมูลสมาชิก
-        $sqli = "UPDATE Warehouse 
-                SET Warehouse_Name = '$Warehouse_Name',
-                    Warehouse_Size = '$Warehouse_Size',
-                    Warehouse_Description = '$Warehouse_Description',
-                    Warehouse_Address = '$Warehouse_Address'
-                WHERE Warehouse_ID = '$Warehouse_ID'
+        $sqli = "UPDATE admin 
+                SET Admin_Name = '$Admin_Name',
+                    Admin_Password = '$Admin_Password',
+                    Admin_Tel = '$Admin_Tel',
+                    Admin_Address = '$Admin_Address'
+                WHERE Admin_ID = '$Admin_ID'
                 ";
         // ทำการลบข้อมูล
         mysqli_query($conn,$sqli);
